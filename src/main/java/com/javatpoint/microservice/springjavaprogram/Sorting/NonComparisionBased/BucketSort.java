@@ -12,7 +12,8 @@ public class BucketSort {
      now sort each bucket using insertion sort,
      after that concatenate all the sorted bucket
      non-comparision based , stable out-place sorting algorithm.
-     O(n)
+     O(n) best & Average
+     O(n^2) for worst case ( all elements came into same bucket with n size and applying insertion-sort -> O(n^2)
      */
 
     public static void main(String[] args) {
