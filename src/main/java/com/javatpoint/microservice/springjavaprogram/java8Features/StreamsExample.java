@@ -6,10 +6,21 @@ import java.util.stream.Stream;
 
 public class StreamsExample {
     public static void main(String args[]){
-        List<String> names = Arrays.asList("Vinod","Aakash","Viaksh","Abhinav","Amritesh","aniket","Jatin");
-        names.stream().filter(
+        // to handle nulls
+        List<String> names = Arrays.asList("Vinod","Aakash","Viaksh","Abhinav","Amritesh","aniket","Jatin",null);
+        names.stream().filter(Objects::nonNull).filter(
                 name -> name.startsWith("a") || name.startsWith("A") || name.startsWith("Vi")
         ).forEach(System.out::println);
+
+        // other method to Handle nulls is
+        // use Optional
+        System.out.println();
+        System.out.println("handling Null using Optional class (Container Object that may or may not hold a null value)");
+        Optional.ofNullable(names).orElseGet(Collections::emptyList)
+                        .stream().filter(Objects::nonNull).filter(
+                        name -> name.startsWith("a") || name.startsWith("A") || name.startsWith("Vi")
+                ).forEach(System.out::println);
+
 
 
 
@@ -42,7 +53,7 @@ public class StreamsExample {
 
         // Using map it will print ObjectReference Hashcode not the data because it creates streams of stream, flatMap to flatten and print
         names1.stream()
-                .map(Collection::stream)  // Flatten to Stream<String>
+                .map(Collection::stream)
                 .forEach(System.out::println);
 
         names1.stream()
@@ -50,22 +61,24 @@ public class StreamsExample {
                 .forEach(System.out::println);
 
         // Peek() - for debugging purpose
-        names.stream().filter(
+        // to handle nulls
+        names.stream().filter(Objects::nonNull).filter(
                 name ->  name.startsWith("Vi")
         ).peek(item -> System.out.println("Filtered : "+item)).map(String::toUpperCase)
                 .peek(item -> System.out.println("Mapped : "+item)).toList();
 
         // Reduce ->  combine stream element and produce single result (add/product/String concatination)
-        List<Integer> nums = Arrays.asList(1,2,3,4,5,6,7);
-        Optional<Integer> result = nums.stream().reduce(1,(a, b) -> a+b).describeConstable();
+        List<Integer> nums = Arrays.asList(1,2,3,4,5,6,7,8);
+        Optional<Integer> result = nums.stream().reduce(0,(a, b) -> a+b).describeConstable();
         result.ifPresent(System.out::println);
 
         Optional<Integer> max = nums.stream().reduce(Integer::max);
         max.ifPresent(System.out::println);
         Optional<Integer> min = nums.stream().reduce(Integer::min);
         min.ifPresent(System.out::println);
-        Optional<String> concatinatedString = names.stream().reduce("",String::concat).describeConstable();
-        min.ifPresent(System.out::println);
+        // to handle nulls
+        Optional<String> concatinatedString = names.stream().filter(Objects::nonNull).reduce("",String::concat).describeConstable();
+        concatinatedString.ifPresent(System.out::println);
 
 
         // Grouping By
@@ -95,7 +108,7 @@ public class StreamsExample {
         // Finding Duplicates
         List<Integer> integers = Arrays.asList(1,2,3,4,5,6,7,8,9,0,8,1,2,3,4,5);
         Optional<Integer> result2 = integers.stream().filter(i -> Collections.frequency(integers,i ) > 1)
-                .distinct().max(Integer::compareTo);
+                .distinct().skip(7).findFirst();
 
 
         result2.ifPresent(System.out::println);

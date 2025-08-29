@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 public class ReflectionAPI {
-    public static void main(String args[]){
+    public static void main(String args[]) throws ClassNotFoundException {
         Person person = new Person();
         Class cls = person.getClass();
         Method[] methods = cls.getMethods();
