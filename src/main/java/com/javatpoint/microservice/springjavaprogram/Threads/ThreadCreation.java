@@ -21,6 +21,16 @@ public class ThreadCreation {
         });
         thread1.start();
 
+        // using direct Runnable Interface
+        Thread thread5 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread Running using direct Runnable...");
+            }
+        });
+        thread5.start();
+
+
     }
 }
 
