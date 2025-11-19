@@ -1,14 +1,19 @@
 package com.javatpoint.microservice.springjavaprogram.Serialization;
 
 import java.io.*;
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ManagementFactory;
 
 public class SerializationExample  {
     public static void main(String args[]) throws IOException, ClassNotFoundException {
+
         Person person = new Person("Vinod Kumar Chandani",28);
+
         // Serialization Process
         OutputStream outputStream = new FileOutputStream("person.ser");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(person);
+
         // DeSerialization Process
         InputStream inputStream = new FileInputStream("person.ser");
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
@@ -19,6 +24,11 @@ public class SerializationExample  {
             System.out.println("Yes");
         }else{
             System.out.println("No");
+        }
+        for (GarbageCollectorMXBean gc :
+                ManagementFactory.getGarbageCollectorMXBeans()) {
+
+            System.out.println("GC Name: " + gc.getName());
         }
     }
 }

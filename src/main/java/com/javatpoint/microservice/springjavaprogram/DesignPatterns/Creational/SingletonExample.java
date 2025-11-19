@@ -19,7 +19,7 @@ public class SingletonExample {
 
 class SingleTon {
     private static SingleTon singleTonExample;
-    public SingleTon(){
+    private SingleTon(){
         System.out.println("Instance Created");
     }
 

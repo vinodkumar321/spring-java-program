@@ -10,7 +10,9 @@ public class OptionalClass {
         // Optional.of(null) -> throws Nullpointer but Optional.ofNullable(null) accespts null values.
         Optional<String> string2 = Optional.empty();
         Optional<String> string3 = Optional.ofNullable("Vishal Kumar");
+        // executes logic , if value exist.
         string.ifPresent(e -> System.out.println("string : "+e));
+
         string2.ifPresentOrElse(e -> System.out.println("string2 : " + e), new Runnable() {
             @Override
             public void run() {

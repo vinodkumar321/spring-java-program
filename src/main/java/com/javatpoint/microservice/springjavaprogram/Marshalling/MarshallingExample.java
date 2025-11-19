@@ -12,13 +12,16 @@ import java.nio.file.Paths;
 
 public class MarshallingExample {
     public static void main(String args[]) throws JAXBException, IOException {
+
         User user = new User("Vinod Kumar Chandani",29);
+
         // Marshalling (Java → XML) -> Using JAXB
         JAXBContext context = JAXBContext.newInstance(User.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         File file = new File("user.xml");
         marshaller.marshal(user, file);
+
         // marshalled data saved in user.xml file
         // converting user.xml file data to XML -> Java Object (unMarshalling)
         String content = Files.readString(Paths.get("user.xml"));

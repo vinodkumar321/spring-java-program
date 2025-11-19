@@ -7,7 +7,21 @@ import java.util.stream.Stream;
 public class StreamsExample {
     public static void main(String args[]){
         // to handle nulls
-        List<String> names = Arrays.asList("Vinod","Aakash","Viaksh","Abhinav","Amritesh","aniket","Jatin",null);
+        List<String> names = null;
+        /*
+        names.stream().filter(Objects::nonNull).filter(
+                name -> name.startsWith("a") || name.startsWith("A") || name.startsWith("Vi")
+        ).forEach(System.out::println);
+        // throws NullPointerException
+         */
+        System.out.println();
+        System.out.println("handling Null using Optional class (Container Object that may or may not hold a null value)");
+        Optional.ofNullable(names).orElseGet(Collections::emptyList)
+                .stream().filter(Objects::nonNull).filter(
+                        name -> name.startsWith("a") || name.startsWith("A") || name.startsWith("Vi")
+                ).forEach(e -> System.out.println("Element : "+e));
+
+        names = Arrays.asList("Vinod","Aakash","Viaksh","Abhinav","Amritesh","aniket","Jatin",null);
         names.stream().filter(Objects::nonNull).filter(
                 name -> name.startsWith("a") || name.startsWith("A") || name.startsWith("Vi")
         ).forEach(System.out::println);
@@ -42,7 +56,7 @@ public class StreamsExample {
         integerStream.limit(20).forEach(System.out::println);
 
         // Generate Random Values
-        Stream<Double> randomStream = Stream.generate(Math::random);
+        Stream<Double> randomStream = Stream.generate(Math::random); // Stream.generate(() -> Math.random())
         randomStream.limit(3).forEach(System.out::println);
 
         // flatMap()
@@ -53,8 +67,8 @@ public class StreamsExample {
 
         // Using map it will print ObjectReference Hashcode not the data because it creates streams of stream, flatMap to flatten and print
         names1.stream()
-                .map(Collection::stream)
-                .forEach(System.out::println);
+                .map(Collection::stream) // .map(c -> c.stream())
+                .forEach(System.out::println);  // .forEach(e -> System.out.println(e));
 
         names1.stream()
                 .flatMap(Collection::stream)  // Flatten to Stream<String>
