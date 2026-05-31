@@ -13,11 +13,9 @@ public class UDPClient {
     public static void main(String args[]) throws IOException {
         // Create a UDP socket
         DatagramSocket socket = new DatagramSocket();
-
         // Server address & port
         InetAddress serverAddress = InetAddress.getByName("localhost");
         int serverPort = 2246;
-
         // Send message to server
         String message = "Hello from UDP Client!";
         DatagramPacket packet = new DatagramPacket(
@@ -27,7 +25,6 @@ public class UDPClient {
                 serverPort
         );
         socket.send(packet);
-
         // Receive response
         byte[] buffer = new byte[1024];
         DatagramPacket responsePacket = new DatagramPacket(buffer, buffer.length);

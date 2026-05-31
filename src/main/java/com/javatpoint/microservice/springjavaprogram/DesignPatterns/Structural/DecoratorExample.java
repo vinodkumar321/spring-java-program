@@ -19,8 +19,8 @@ public class DecoratorExample {
 }
 
 interface Beverages {
-    public String getDescription();
-    public Double getCost();
+    String getDescription();
+    Double getCost();
 }
 
 
